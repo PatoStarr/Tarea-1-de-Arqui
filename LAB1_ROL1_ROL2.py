@@ -1,3 +1,4 @@
+<<<<<<< Updated upstream
 from pathlib import Path
 ruta = Path(__file__).parent / "Archivos_prueba/Encriptados/prueba_3.txt"
 
@@ -102,11 +103,14 @@ def leer_numero(inicio, numeros):
         
 
     #return None
+=======
+>>>>>>> Stashed changes
 
 
 
 
 
+<<<<<<< Updated upstream
 
 def a_hex():
 
@@ -145,3 +149,25 @@ def main():
     leer_numero(inicio,numeros)
 
 main()
+=======
+def main():
+    archivo=open("notas_dm.txt", "r")
+    contenido=archivo.read()
+    archivo.close()
+
+    print("---DECODIFICADOR DE NOTAS---\n\n\n")
+
+    base=int(input("Ingrese la base en la que desea visualizar los datos (2, 8, 10, 16): "))
+
+    print("\n\n[+] Procesando archivo: notas_dm.txt...\n")
+    print("[!] Filtrando ruido m ıstico (valores fuera de rango ASCII)...\n")
+
+    #hacer funciones para cada base
+    #se me ocurre q tmbn se podría hacer como un for para recorrer todo el archivo y 
+    #guardar los números en una lista, pero ns como hacerlo :( (por ahora)
+    
+
+
+if __name__=="__main__":
+    main()
+>>>>>>> Stashed changes
