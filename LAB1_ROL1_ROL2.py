@@ -1,4 +1,4 @@
-<<<<<<< Updated upstream
+
 from pathlib import Path
 ruta = Path(__file__).parent / "Archivos_prueba/Encriptados/prueba_3.txt"
 
@@ -85,8 +85,8 @@ def leer_archivo():
                 inicio = False
         else:
             continue
-    for numeros in numeros:
-        print(numeros)
+    for num in numeros:
+        print(num)
     print(numero)
     return numeros
     #print(texto_valido)
@@ -103,28 +103,138 @@ def leer_numero(inicio, numeros):
         
 
     #return None
-=======
->>>>>>> Stashed changes
+
+#creo q deberia crear funciones para cada conversion
+#parece que todas las converiones que impliquen la base decimal no se pueden hacer con los mapas :(
+
+
+def binario_a_decimal(bin_str):
+    decimal=0
+
+    #hacemos un recorrido invertido del numero binario
+    for i, digito in enumerate(reversed(bin_str)):  #10
+        decimal+=int(digito)*(2**i)
+    
+    return decimal
 
 
 
+def decimal_a_binario(dec_str):
+    
+    if int(dec_str)==0:
+        return 0
+    
+    bin_str=""
+    while int(dec_str)>0:
+        bin_str=int(dec_str)%2+bin_str
+        int(dec_str)//=2
+    
+    return bin_str
 
+def hexadecimal_a_decimal(hex_str):
+    
+    #voy a poner digitos hexadecimales para después usar su posicion como su valor
+    digitos_hex="0123456789ABCDEF"
 
-<<<<<<< Updated upstream
+    decimal=0
+    #voy a recorrer el hexadecimal al reves
+    for i, digito in enumerate(reversed(hex_str)):
+        decimal+=digitos_hex.index(i)*(16**i)
+    
+    return decimal
 
-def a_hex():
+def decimal_a_hexadecimal(dec_str):
+    #voy a convertir dec_str a int
+    dec_int=int(dec_str)
 
-    return None
+    if dec_int==0:
+        return 0
+    
+    digitos_hex="0123456789ABCDEF"
+    hexa=""
 
-def a_dec():
+    while dec_int>0:
+        resto=dec_int%16
+        hexa=digitos_hex[resto]+hexa
+        dec_int//=16
+    
+    return hexa
 
-    return None
+#en el libro no sale nada de los numeros octales(creo),pero supongo que la logica de conversion
+#debe ser la misma que con binario y hexadecimal
+def octal_a_decimal(oct_str):
+    decimal=0
 
-def a_octa():
-    return None
+    for i, digito in enumerate(reversed(oct_str)):
+        decimal+=int(digito)*(8**i)
+    
+    return decimal
 
-def a_bi():
-    return None
+def decimal_a_octal(dec_str):
+    dec_int=int(dec_str)
+    if dec_int==0:
+        return 0
+    
+    oct=0
+
+    while dec_int>0:
+        oct+=dec_int%8
+        dec_int//=8
+    
+    return oct
+
+#ahora voy a codear las funciones que sí se pueden hacer utilizando los mapas
+#que son: bin <--> oct, oct<-->hex, bin<-->hex
+
+def binario_a_hexadecimal(bin_str):
+    #tenemos que asegurar que el largo del numero binario sea multiplo de 4
+    #si no es mult de 4 le agregamos 0's a la izquierda
+    #cero a la izquierda JKSAJDKADSBJ XDDDDDD
+    while len(bin_str)%4!=0:
+        bin_str='0'+bin_str
+
+    hexa=""
+
+    for i in range(0, len(bin_str,4)):
+        #vemos por grupos de 4 bits de izq a der
+        grupo=bin_str[i:i+4]
+        hexa+=bi_a_hex[grupo]
+    
+    #luego eliminamos los 0's de la izquierda
+    hexa=hexa.lstrip('0')
+    
+    return hexa
+
+def hexadecimal_a_binario(hex_str):
+    binario=""
+
+    for digito in hex_str:
+        binario=hex_a_bi[digito]+ binario
+    
+    binario=int(binario)
+    return binario
+
+#esta conversion es similar a la de bin a hexa
+def binario_a_octal(bin_str):
+
+    #hay q aseguararse de que el largo del num binario sea multiplo de 3
+    while len(bin_str)%3!=0:
+        bin_str='0'+bin_str
+    
+    octa=""
+    #convertimos en grupos de 3 bits de izq a der
+    for i in range(0, len(bin_str),3):
+        grupo=bin_str[i:i+3]
+        octa=bi_a_oct[grupo]+bin_str
+    
+    return octa
+    
+def octal_a_binario(octa_str):
+    binario=""
+    for digito in octa_str:
+        binario=oct_a_bi[digito+binario]
+    
+    return int(binario)
 
 
 def main():
@@ -148,26 +258,8 @@ def main():
     numeros = leer_archivo()
     leer_numero(inicio,numeros)
 
-main()
-=======
-def main():
-    archivo=open("notas_dm.txt", "r")
-    contenido=archivo.read()
-    archivo.close()
-
-    print("---DECODIFICADOR DE NOTAS---\n\n\n")
-
-    base=int(input("Ingrese la base en la que desea visualizar los datos (2, 8, 10, 16): "))
-
-    print("\n\n[+] Procesando archivo: notas_dm.txt...\n")
-    print("[!] Filtrando ruido m ıstico (valores fuera de rango ASCII)...\n")
-
-    #hacer funciones para cada base
-    #se me ocurre q tmbn se podría hacer como un for para recorrer todo el archivo y 
-    #guardar los números en una lista, pero ns como hacerlo :( (por ahora)
-    
 
 
 if __name__=="__main__":
     main()
->>>>>>> Stashed changes
+
